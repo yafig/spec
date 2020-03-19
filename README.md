@@ -12,9 +12,10 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 - username, unique
 - email
 - password
+- password_salt
 - status
-- follower
-- follows
+- follower, array of user_ids
+- follows, array of user_ids
 - joined_at
 
 ### Relationship
