@@ -2,38 +2,50 @@
 
 The main microservice architecture is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices
 
+HTTP REST API design is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design#filter-and-paginate-data
+
 ## Service Definitions
-The service definition and structs.
+The service definition, its endpoints and parameters.
 
 ### User
 Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
-- login
-- register
-- follow
-- block
+- **GET** `/users/active/{user_id}/{token}` -> `block(user_id, token)`
+- **POST** `/users` -> `create_user()`
+- **PUT** `/users` -> `edit_user()`
+- **DELETE** `/users` -> `delete_user()`
+- **POST** `/users/login` -> `login()`
+- **POST** `/users/register` -> `register()`
+- **GET** `/users/follow/{user_id}` -> `follow(user_id)`
+- **GET** `/users/block/{user_id}` -> `block(user_id)`
+- **GET** `/users/{user_id}/posts` -> `get_user_posts(user_id)`
 
 Follow and block operations will generate a materialized views in the database in the database to save the compute power during query. It will be bundled in the same database transaction.
 
 The operations with gRPC are:
-- authenticate user
+- `authenticate_user(user_id, hashed_password)`
 
-The gRPC is mainly for the other microservices to authenticate the token before proceeding the operation. It will also check the status of the user.
+After creating a new user, the service will publish a message to:
+- `send_email` queue
+
+The gRPC is mainly for the other microservices to authenticate the user & its JWT token before proceeding the operation. It will also check the status of the user.
 
 ### Post
 Handle post operations: upload, edit and delete pictures.
 
 After posting a new picture, the service will publish a message to:
-- Thumbnail generator queue
-- Search indexer queue
+- `thumbnail_generator` queue
+- `search_indexer` queue
 
 Post service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
-- upload
-- edit
-- delete
+- **GET** `/posts` -> `feed()`
+- **GET** `/posts/{id}` -> `get_post(id)`
+- **POST** `/posts/{id}` -> `upload(id)`
+- **PUT** `/posts/{id}` -> `edit_post(id)`
+- **DELETE** `/posts/{id}` -> `delete_post(id)`
 
 The operations with gRPC are:
-- is_indexed
-- is_ready_thumbnail
+- `is_indexed(post_id)`
+- `is_ready_thumbnail(post_id)`
 
 The gRPC is mainly for the backend workers (thumbnail generator and search indexer) to update their progress.
 
@@ -41,9 +53,10 @@ The gRPC is mainly for the backend workers (thumbnail generator and search index
 Handle picture comment operations: post, update, delete comments.
 
 Search service is exposed via HTTP REST. The HTTP REST operation is:
-- create
-- edit
-- delete
+- **GET** `/post/{id}/comment/` -> `get_comment()`
+- **POST** `/post/{id}/comment/` -> `create_comment()`
+- **PUT** `/post/{id}/comment/` -> `edit_comment()`
+- **DELETE** `/post/{id}/comment/` -> `delete_comment()`
 
 ### Search
 Handle picture search. Search will be based on picture tag.
@@ -51,9 +64,14 @@ Handle picture search. Search will be based on picture tag.
 Search service will be designed with CQRS design pattern. Its data is derived from Post database. It has its own dedicated database tailored for searching (eg. Elasticsearch).
 
 Search service is exposed via HTTP REST. The HTTP REST operation is:
-- search
+- **GET** `/search/query?query={query}&limit={limit}&offset={offset}` -> `search(query, limit, offset)`
+- **GET** `/search/autocomplete?query={query}` -> `autocomplete(query)`
 
-## Design
+# Queues
+These are the queues for communications between API Servers and Backend Workers
+- `search_indexer` queue: (create) post service -> queue -> search_indexer worker
+- `thumbnail_generator` queue: (create) post service -> queue -> thumbnail_generator worker
+- `send_email` queue: (create) user service -> queue -> send_email worker
 
 # Implementations
 
