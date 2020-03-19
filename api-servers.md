@@ -40,6 +40,11 @@ The gRPC is mainly for the backend workers (thumbnail generator and search index
 ### Comment
 Handle picture comment operations: post, update, delete comments.
 
+Search service is exposed via HTTP REST. The HTTP REST operation is:
+- create
+- edit
+- delete
+
 ### Search
 Handle picture search. Search will be based on picture tag.
 
@@ -59,4 +64,5 @@ Across all services and both implementations, they will share the same specifica
 - Caching using Redis
 - Soft deletion
 - Use ORM to ensure portability between databases
-- Dependency Injection 
+- Dependency Injection
+- API Documentation must be auto-generated
