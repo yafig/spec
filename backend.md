@@ -10,6 +10,12 @@ What thumbnail generator do:
 2. Upload the picture to Object Storage service
 3. Trigger a gRPC call to Picture service to notify that the picture is successfully uploaded
 
+### send_email worker
+It will consume message from `send_email queue` published by Picture API Server.
+
+What send email worker do:
+- Send a greeting email to the new user with activation link
+
 ### search_indexer worker
 I will consume from `search_indexer queue` published by Picture API Server.
 
@@ -17,11 +23,12 @@ What search indexer do:
 - Add a new data into indexing database (Elasticsearch)
 - If the data already exist, replace the data with new one
 
-### send_email worker
-It will consume message from `send_email queue` published by Picture API Server.
+### search_index_builder worker
+This worker will destroy the current
 
-What send email worker do:
-- Send a greeting email to the new user with activation link
+What search index builder do:
+- Destroy the current index
+- Repopulate index derived from Post database
 
 # Implementation
 ## Container

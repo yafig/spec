@@ -12,6 +12,8 @@ Handle user registration and authentication. User service will be accessible via
 - **PUT** `/users` -> `edit_user()`
 - **DELETE** `/users` -> `delete_user()`
 - **POST** `/users/login` -> `login()`
+
+  Once a user logged in via frontend website, we will return the JWT token for the Javascript to set into the local storage in the browser.
 - **POST** `/users/register` -> `register()`
 
   After creating a new user, the service will publish a message to `send_email` queue
@@ -20,6 +22,8 @@ Handle user registration and authentication. User service will be accessible via
   When a user follow someone, it will store the add the new relationship into the the list. The `follow count` will be a materialized view and will be updated as the function is invoked.
 - **GET** `/users/block/{user_id}` -> `block(user_id)`
 - **GET** `/users/{user_id}/posts` -> `get_user_posts(user_id)`
+
+  This function will invoke gRPC call to the Post microservice to obtain the user's posts.
 
 Follow and block operations will generate a materialized views in the database in the database to save the compute power during query. It will be bundled in the same database transaction.
 
@@ -50,15 +54,17 @@ The operations with gRPC are:
 - `is_indexed(post_id)`
 - `is_ready_thumbnail(post_id)`
 - `delete_user(user_id)`
+- `get_post_by_user(user_id)`
 
 The gRPC protocol is mainly for the backend workers (`thumbnail_generator` and `search_indexer` workers) to update their progress.
 
 #### Comment Sub-resource
 Search service is exposed via HTTP REST. The HTTP REST operation is:
-- **GET** `/post/{id}/comment/` -> `get_comment()`
-- **POST** `/post/{id}/comment/` -> `create_comment()`
-- **PUT** `/post/{id}/comment/` -> `edit_comment()`
-- **DELETE** `/post/{id}/comment/` -> `delete_comment()`
+- **GET** `/post/{post_id}/comment/` -> `get_comment(post_id)`
+- **POST** `/post/{post_id}/comment/` -> `create_comment(post_id)`
+- **PUT** `/post/{post_id}/comment/{comment_id}` -> `edit_comment(post_id)`
+- **DELETE** `/post/{post_id}/comment/` -> `delete_comment(post_id)`
+- **DELETE** `/post/{post_id}/comment/{comment_id}` -> `delete_comment(post_id, comment_id)`
 
 ### Search Service
 Search will be based on picture tag. 
@@ -86,3 +92,4 @@ Across all services and both implementations, they will share the same specifica
 - Use ORM to ensure portability between databases
 - Dependency Injection
 - API Documentation must be auto-generated
+- Each endpoints will designed best to be idempotent
