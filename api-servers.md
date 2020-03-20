@@ -4,18 +4,20 @@ The main microservice architecture is based on this Microsoft article: https://d
 
 HTTP REST API design is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design#filter-and-paginate-data
 
-## Service Definitions
-The service definition, its endpoints and parameters.
+## Service & Resource Definitions 
+The service definitions, resources and sub-resource, its endpoints and parameters.
 
-### User
+### User Service
 Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
-- **GET** `/users/active/{user_id}/{token}` -> `block(user_id, token)`
-- **POST** `/users` -> `create_user()`
 - **PUT** `/users` -> `edit_user()`
 - **DELETE** `/users` -> `delete_user()`
 - **POST** `/users/login` -> `login()`
 - **POST** `/users/register` -> `register()`
+
+  After creating a new user, the service will publish a message to `send_email` queue
 - **GET** `/users/follow/{user_id}` -> `follow(user_id)`
+
+  When a user follow someone, it will store the add the new relationship into the the list. The `follow count` will be a materialized view and will be updated as the function is invoked.
 - **GET** `/users/block/{user_id}` -> `block(user_id)`
 - **GET** `/users/{user_id}/posts` -> `get_user_posts(user_id)`
 
@@ -24,17 +26,14 @@ Follow and block operations will generate a materialized views in the database i
 The operations with gRPC are:
 - `authenticate_user(user_id, hashed_password)`
 
-After creating a new user, the service will publish a message to:
-- `send_email` queue
-
 The gRPC is mainly for the other microservices to authenticate the user & its JWT token before proceeding the operation. It will also check the status of the user.
 
-### Post
-Handle post operations: upload, edit and delete pictures.
+### Post Service
+Resources:
+- Posts
+- Comments
 
-After posting a new picture, the service will publish a message to:
-- `thumbnail_generator` queue
-- `search_indexer` queue
+Comment resource is a cascade of Post resource.
 
 Post service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
 - **GET** `/posts` -> `feed()`
@@ -43,23 +42,26 @@ Post service will be accessible via both HTTP REST & gRPC. The operations with H
 - **PUT** `/posts/{id}` -> `edit_post(id)`
 - **DELETE** `/posts/{id}` -> `delete_post(id)`
 
+After posting a new picture, the service will publish a message to:
+- `thumbnail_generator` queue
+- `search_indexer` queue
+
 The operations with gRPC are:
 - `is_indexed(post_id)`
 - `is_ready_thumbnail(post_id)`
+- `delete_user(user_id)`
 
-The gRPC is mainly for the backend workers (thumbnail generator and search indexer) to update their progress.
+The gRPC protocol is mainly for the backend workers (`thumbnail_generator` and `search_indexer` workers) to update their progress.
 
-### Comment
-Handle picture comment operations: post, update, delete comments.
-
+#### Comment Sub-resource
 Search service is exposed via HTTP REST. The HTTP REST operation is:
 - **GET** `/post/{id}/comment/` -> `get_comment()`
 - **POST** `/post/{id}/comment/` -> `create_comment()`
 - **PUT** `/post/{id}/comment/` -> `edit_comment()`
 - **DELETE** `/post/{id}/comment/` -> `delete_comment()`
 
-### Search
-Handle picture search. Search will be based on picture tag.
+### Search Service
+Search will be based on picture tag. 
 
 Search service will be designed with CQRS design pattern. Its data is derived from Post database. It has its own dedicated database tailored for searching (eg. Elasticsearch).
 
