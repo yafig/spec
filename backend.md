@@ -1,8 +1,15 @@
-# Backend
+# Backend Workers
 
-## Backend Workers
+Generally, backend workers and the workers that consume Message Queue (MQ) message and perform tasks based on it. This will allow asynchronous communication between API Server microservices and Backend workers. The design is based on this Publisher-Subscriber pattern from Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/patterns/publisher-subscriber
 
-### thumbnail_generator worker
+List of workers
+- [thumbnail_generator worker](###thumbnail_generator-worker)
+- [send_email worker](###send_email-worker)
+- [search_index_builder worker](###search_index_builder-worker)
+
+## List of Backend Workers
+
+###thumbnail_generator worker
 It will consume message from `thumbnail_generator queue` published by Picture API Server. 
 
 What thumbnail generator do:
