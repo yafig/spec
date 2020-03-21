@@ -18,8 +18,21 @@ Other 3rd-party software/services:
 
 \* I might change another cloud provider in the future in order to experience their platform.
 
-# Implementation 1: Event-driven deployment
+# Deployment Strategies
+## Deployment 1: Gateway Routing Pattern
 
-# Implementation 2: Gateway offloading
+Main Reference: https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-routing
 
-# Implementation 3: Kubernetes
+The services will be hosted inside a single (or multiple VMs for HA & Load balancing). The gateway routing will be handled by Nginx as the router. The microservices will be run as Linux services in the VM. **Ansible** will be used to configure the VMs.
+
+## Deployment 2: Kubernetes Containerized Deployment
+
+Main Reference: https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/microservices/aks
+
+The service will be hosted in a (on-prem, because I'm cheap skate) Kubernetes cluster. The routing will be handled by Kubernetes Service & Ingress. Kubernetes manifests will be used to coordinate the deployments.
+
+## Deployment 3: Serverless Deployment
+
+Main Reference: https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/serverless/web-app
+
+The service will be hosted in a Serverless environment in a cloud provider. However, it will be deployed as a serverless container (Google Cloud Run like deployment) instead of Lambda-like deployment. Routing will be handled by API Gateway.
