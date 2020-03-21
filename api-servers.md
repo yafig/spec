@@ -8,10 +8,10 @@ HTTP REST API design is based on this Microsoft article: https://docs.microsoft.
 The service definitions, resources and sub-resource, its endpoints and parameters.
 
 There will be 3 main services in the system:
-- [User Service](###User-Service)
-- [Post Service](###Post-Service)
-  - [Comment Subresource](####Comment-Sub-resource)
-- [Search Service](###Search-Service)
+- [User Service](#User-Service)
+- [Post Service](#Post-Service)
+  - [Comment Subresource](#Comment-Sub-resource)
+- [Search Service](#Search-Service)
 
 ### User Service
 Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:

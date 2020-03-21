@@ -3,9 +3,9 @@
 Generally, backend workers and the workers that consume Message Queue (MQ) message and perform tasks based on it. This will allow asynchronous communication between API Server microservices and Backend workers. The design is based on this Publisher-Subscriber pattern from Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/patterns/publisher-subscriber
 
 List of workers
-- [thumbnail_generator worker](###thumbnail_generator-worker)
-- [send_email worker](###send_email-worker)
-- [search_index_builder worker](###search_index_builder-worker)
+- [thumbnail_generator worker](#thumbnail_generator-worker)
+- [send_email worker](#send_email-worker)
+- [search_index_builder worker](#search_index_builder-worker)
 
 ## List of Backend Workers
 
