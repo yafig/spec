@@ -14,8 +14,8 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 - password
 - password_salt
 - status
-- follower, array of user_ids
-- follows, array of user_ids
+- follower_count
+- following_count
 - joined_at
 
 ### Relationship
@@ -25,7 +25,7 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 - established_at
 
 ### Post
-- post_id
+- id
 - user
 - tag
 - status
