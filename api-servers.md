@@ -97,7 +97,7 @@ Across all services and both implementations, they will share the same specifica
 
 The implementation of the microservice will be based on either of these architecture:
 - [Flat-file](https://www.calhoun.io/flat-application-structure/)
-- [Hexagonal / Domain Driven Design](https://www.calhoun.io/moving-towards-domain-driven-design-in-go/)
+- [Hexagonal / Port & Adapter Design](https://www.calhoun.io/moving-towards-domain-driven-design-in-go/)
 - [Model-View-Controller (MVC)](https://www.calhoun.io/using-mvc-to-structure-go-web-applications/)
 
 *\* Other useful resource to structure the microservice: https://www.youtube.com/watch?v=1rxDzs0zgcE*
