@@ -1,5 +1,7 @@
 # Yet Another Free (OSS) Instagram-clone
 
+![YAFIG Logo](logo.png)
+
 **Status: Under heavy development**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9166b573-1cee-48eb-89e4-c9b60a47c938/deploy-status)](https://app.netlify.com/sites/yafig/deploys)
@@ -22,3 +24,7 @@ Refer to these detailed specs for more information:
 - [Backend workers](backend.md)
 - [Devops](devops.md)
 - [Infrastructure](infrastructure.md)
+
+# Who made this?
+
+This is sole project by [Fadhil Yaacob](http://twitter.com/sdil)
