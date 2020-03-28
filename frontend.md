@@ -1,5 +1,7 @@
 # Frontend
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9166b573-1cee-48eb-89e4-c9b60a47c938/deploy-status)](https://app.netlify.com/sites/yafig/deploys)
+
 The page will have the following paths:
 1. Main page at `/` path
 2. Login page at `/login` path
