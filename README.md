@@ -31,6 +31,6 @@ Refer to these detailed specs for more information:
 - [Devops](devops.md)
 - [Infrastructure](infrastructure.md)
 
-## Who made this?
+## Who made this
 
 This is sole project by [Fadhil Yaacob](http://twitter.com/sdil)

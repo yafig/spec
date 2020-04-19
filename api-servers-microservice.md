@@ -21,34 +21,14 @@ Handle user registration and authentication. User service will be accessible via
 |----------|------|-----|-----|--------|
 | /register | Create a new user. Will publish a message to `send_email` queue | | | |
 | /login | Login the user and return a JWT token | | | |
+| /users | | Authenticate user based on Header Authorization supplied | | |
 | /users/{username} | | Get user details | Update user | Delete user |
-| /users/{username}/posts | | Get user's posts | | |
+| /users/{username}/posts | | Get user's posts. Will invoke Post microservice. | | |
 | /users/follow/{username} | | Creates a new record in `relationship` table and update `follow_count` of that user | | |
 | /users/block/{username} | | Creates a new record in `relationship` table | | |
 
-
-- **PUT** `/users/{username}` -> `get_user(username)`
-- **PUT** `/users/{username}` -> `edit_user(username)`
-- **DELETE** `/users/{username}` -> `delete_user(username)`
-- **POST** `/users/login` -> `login()`
-
-  Once a user logged in via frontend website, we will return the JWT token for the Javascript to set into the local storage in the browser.
-- **POST** `/users/register` -> `register()`
-
-  After creating a new user, the service will publish a message to `send_email` queue
-- **GET** `/users/follow/{username}` -> `follow(username)`
-
-  When a user follow someone, it will store the add the new relationship into the the list. The `follow count` will be a materialized view and will be updated as the function is invoked.
-- **GET** `/users/block/{username}` -> `block(username)`
-- **GET** `/users/{username}/posts` -> `get_user_posts(username)`
-
-  This function will invoke `get_post_by_user` from  Post microservice via REST API to obtain the user's posts. It use REST API instead of gRPC.
-
-- **GET** `/users/get-user` -> `get_user`
-
-  This path is for other microservices to authenticate the user based on its JWT header.
-
-Follow and block operations will generate a materialized views in the database in the database to save the compute power during query. It will be bundled in the same database transaction.
+- `/users` is mainly for other microservices to authorize the current user in context.
+- Follow and block operations will generate a materialized views in the database in the database to save the compute power during query. It will be bundled in the same database transaction.
 
 ### Post Service
 
