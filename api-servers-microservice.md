@@ -1,16 +1,13 @@
 # API Servers (Microservice)
 
-The main microservice architecture is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices . However, there is a slight modification to the convention:
-
-- `user_id` is replaced with `username` for identifier. For example, the get_user URL is `/users/john_doe` instead of `/users/1`.
-
-HTTP REST API design is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design#filter-and-paginate-data
+The main microservice architecture is based on this Microsoft article: [Microsoft Microservices architecture style](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices). HTTP REST API design is based on this Microsoft article: [Web API design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design).
 
 # Service & Resource Definitions 
 
 The service definitions, resources and sub-resource, its endpoints and parameters.
 
 There will be 3 main services in the system:
+
 - [User Service](#User-Service)
 - [Post Service](#Post-Service)
   - [Comment Subresource](#Comment-Sub-resource)
@@ -18,7 +15,7 @@ There will be 3 main services in the system:
 
 ## User Service
 
-Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
+Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. There is a small deviation from Microsoft API Design where username is being used as id in the URL path. The operations with HTTP REST are:
 
 - **PUT** `/users/{username}` -> `get_user(username)`
 - **PUT** `/users/{username}` -> `edit_user(username)`
