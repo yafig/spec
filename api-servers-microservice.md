@@ -15,7 +15,7 @@ There will be 3 main services in the system:
 
 ### User Service
 
-Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. There is a small deviation from Microsoft API Design where username is being used as id in the URL path. The operations with HTTP REST are:
+Handle user registration and authentication. User service will be accessible via both HTTP REST. There is a small deviation from Microsoft API Design where username is being used as id in the URL path. The operations with HTTP REST are:
 
 | Resource | POST | GET | PUT | DELETE |
 |----------|------|-----|-----|--------|
@@ -36,18 +36,18 @@ Posts resource has a cascade subresource of Comments.
 
 Post service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
 
-- **GET** `/posts` -> `feed()`
-- **GET** `/posts/{id}` -> `get_post(id)`
-- **POST** `/posts/{id}` -> `upload(id)`
+| Resource | POST | GET | PUT | DELETE |
+|----------|------|-----|-----|--------|
+| /feed    | | Get user's feed | | |
+| /posts   | Upload a new post | | |
+| /posts/{id} | | Get post | Update post | Delete post |
+| /posts/user/{user_id} | | Get posts by user | | |
+  
+- After posting a new picture, the service will publish a message to: `thumbnail_generator` queue and `search_indexer` queue. The backend workers will perform tasks based on the message received
+- `/posts/users/{user_id}` API call is for User service to invoke for its `/users/{username}/posts` endpoint.
+- Deleting a post will delete the post's comment
 
-  After posting a new picture, the service will publish a message to: `thumbnail_generator` queue and `search_indexer` queue. The backend workers will perform tasks based on the message received
-- **PUT** `/posts/{id}` -> `edit_post(id)`
-- **DELETE** `/posts/{id}` -> `delete_post(id)`
-- **GET** `/posts/users/{user_id}` -> `get_post_by_user(user_id)`
-
-  This API call is for User service to invoke for its `/users/{username}/posts` endpoint.
-
-The operations with gRPC are:
+The operations accesible via gRPC are:
 
 - `is_indexed(post_id)`
 - `is_ready_thumbnail(post_id)`
@@ -59,11 +59,10 @@ The gRPC protocol is mainly for the backend workers (`thumbnail_generator` and `
 
 Search service is exposed via HTTP REST. The HTTP REST operation is:
 
-- **GET** `/posts/{post_id}/comments/` -> `get_comment(post_id)`
-- **POST** `/posts/{post_id}/comments/` -> `create_comment(post_id)`
-- **PUT** `/posts/{post_id}/comments/{comment_id}` -> `edit_comment(post_id)`
-- **DELETE** `/posts/{post_id}/comments/` -> `delete_comment(post_id)`
-- **DELETE** `/posts/{post_id}/comments/{comment_id}` -> `delete_comment(post_id, comment_id)`
+| Resource | POST | GET | PUT | DELETE |
+|----------|------|-----|-----|--------|
+| /posts/{post_id}/comments/ | Create a new comment | Get post's comments | | |
+| /posts/{post_id}/comments/{comment_id} | | Get a comment | Edit post comment | Delete comment
 
 ### Search Service
 
