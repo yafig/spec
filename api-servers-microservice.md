@@ -2,7 +2,7 @@
 
 The main microservice architecture is based on this Microsoft article: [Microsoft Microservices architecture style](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices). HTTP REST API design is based on this Microsoft article: [Web API design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design).
 
-# Service & Resource Definitions 
+## Service & Resource Definitions
 
 The service definitions, resources and sub-resource, its endpoints and parameters.
 
@@ -13,9 +13,19 @@ There will be 3 main services in the system:
   - [Comment Subresource](#Comment-Sub-resource)
 - [Search Service](#Search-Service)
 
-## User Service
+### User Service
 
 Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. There is a small deviation from Microsoft API Design where username is being used as id in the URL path. The operations with HTTP REST are:
+
+| Resource | POST | GET | PUT | DELETE |
+|----------|------|-----|-----|--------|
+| /register | Create a new user. Will publish a message to `send_email` queue | | | |
+| /login | Login the user and return a JWT token | | | |
+| /users/{username} | | Get user details | Update user | Delete user |
+| /users/{username}/posts | | Get user's posts | | |
+| /users/follow/{username} | | Creates a new record in `relationship` table and update `follow_count` of that user | | |
+| /users/block/{username} | | Creates a new record in `relationship` table | | |
+
 
 - **PUT** `/users/{username}` -> `get_user(username)`
 - **PUT** `/users/{username}` -> `edit_user(username)`
@@ -40,7 +50,7 @@ Handle user registration and authentication. User service will be accessible via
 
 Follow and block operations will generate a materialized views in the database in the database to save the compute power during query. It will be bundled in the same database transaction.
 
-## Post Service
+### Post Service
 
 Posts resource has a cascade subresource of Comments.
 
@@ -75,7 +85,7 @@ Search service is exposed via HTTP REST. The HTTP REST operation is:
 - **DELETE** `/posts/{post_id}/comments/` -> `delete_comment(post_id)`
 - **DELETE** `/posts/{post_id}/comments/{comment_id}` -> `delete_comment(post_id, comment_id)`
 
-## Search Service
+### Search Service
 
 Search will be based on picture tag. 
 
@@ -88,7 +98,7 @@ Search service is exposed via HTTP REST. The HTTP REST operation is:
   The `limit` and `offset` parameters are for the search result pagination.
 - **GET** `/search/autocomplete?query={query}` -> `autocomplete(query)`
 
-# Queues
+## Queues
 
 These are the queues for communications between API Servers and Backend Workers.
 
@@ -96,7 +106,7 @@ These are the queues for communications between API Servers and Backend Workers.
 - `thumbnail_generator` queue: (create) post service -> queue -> thumbnail_generator worker
 - `send_email` queue: (create) user service -> queue -> send_email worker
 
-# Implementations
+## Implementations
 
 The project will be implemented in both Go and Python. Both implementations are identical. It's just for me to learn both languages. Refer the API-Server repository for more information.
 
