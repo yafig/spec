@@ -1,6 +1,8 @@
-# API Servers
+# API Servers (Microservice)
 
-The main microservice architecture is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices
+The main microservice architecture is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices . However, there is a slight modification to the convention:
+
+- `user_id` is replaced with `username` for identifier. For example, the get_user URL is `/users/john_doe` instead of `/users/1`.
 
 HTTP REST API design is based on this Microsoft article: https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design#filter-and-paginate-data
 
@@ -15,19 +17,20 @@ There will be 3 main services in the system:
 
 ## User Service
 Handle user registration and authentication. User service will be accessible via both HTTP REST & gRPC. The operations with HTTP REST are:
-- **PUT** `/users` -> `edit_user()`
-- **DELETE** `/users` -> `delete_user()`
+- **PUT** `/users/{username}` -> `get_user(username)`
+- **PUT** `/users/{username}` -> `edit_user(username)`
+- **DELETE** `/users/{username}` -> `delete_user(username)`
 - **POST** `/users/login` -> `login()`
 
   Once a user logged in via frontend website, we will return the JWT token for the Javascript to set into the local storage in the browser.
 - **POST** `/users/register` -> `register()`
 
   After creating a new user, the service will publish a message to `send_email` queue
-- **GET** `/users/follow/{user_id}` -> `follow(user_id)`
+- **GET** `/users/follow/{username}` -> `follow(username)`
 
   When a user follow someone, it will store the add the new relationship into the the list. The `follow count` will be a materialized view and will be updated as the function is invoked.
-- **GET** `/users/block/{user_id}` -> `block(user_id)`
-- **GET** `/users/{user_id}/posts` -> `get_user_posts(user_id)`
+- **GET** `/users/block/{username}` -> `block(username)`
+- **GET** `/users/{username}/posts` -> `get_user_posts(username)`
 
   This function will invoke `get_post_by_user` from  Post microservice via gRPC to obtain the user's posts.
 

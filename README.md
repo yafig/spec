@@ -16,15 +16,21 @@ The backend part will be implemented in 2 programming languages (or more, PR is 
 
 The frontend is implemented in VueJS + NuxtJS (again, PR is open for other JS frameworks).
 
+## But why?
+
+
+## Detailed Specs
+
 Refer to these detailed specs for more information:
 
 - [Entities](entities.md)
 - [Frontend](frontend.md)
-- [API Servers](api-servers.md)
+- [API Servers Microservice (Option 1)](api-servers-microservice.md)
+- [API Servers Monolith (Option 2)](api-servers-monolith.md)
 - [Backend workers](backend.md)
 - [Devops](devops.md)
 - [Infrastructure](infrastructure.md)
 
-# Who made this?
+## Who made this?
 
 This is sole project by [Fadhil Yaacob](http://twitter.com/sdil)
