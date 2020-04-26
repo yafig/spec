@@ -20,7 +20,7 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 ## Table of Contents
 
 - [But why?](#But-why)
-- [Detailed Specs](Detailed-specs)
+- [Detailed Specs](#Detailed-specs)
 - [Implementation](#Implementation)
   - [Frontend](#Frontend)
   - [API Servers & Workers](#API-servers--workers)
@@ -49,7 +49,7 @@ Refer to following documents for more information:
 
 ### Frontend
 
-The frontend is implemented in VueJS + NuxtJS (again, PR is open for other JS frameworks). Other frameworks that I might be interested to explore next would be **Svelte** and **NextJS**.
+The frontend is implemented in **[VueJS + NuxtJS](https://github.com/yafig/frontend)**. Other frameworks that I might be interested to explore next would be **Svelte** and **NextJS**.
 
 ### API Servers & Workers
 
@@ -57,11 +57,11 @@ The API Servers will be implemented in two approaches: Monolithic and Microservi
 
 #### Monolithic
 
-The monolithic approach will be implemented in Django REST Framework (DRF).
+The monolithic approach will be implemented in **[Python](https://github.com/yafig/api-server-monolith)** using **Django REST Framework** (DRF).
 
 #### Microservice
 
-The microservice approach will be implemented in 2 programming languages: **Python and Go**. Each microservice will be implemented using either:
+The microservice approach will be implemented in 2 programming languages: **[Python](https://github.com/yafig/api-server-microservice/tree/master/python) and [Go](https://github.com/yafig/api-server-microservice/tree/master/go)**. Each microservice will be implemented using either:
 
 - Hexagonal architecture
 - Model View Controller (MVC) architecture
@@ -69,7 +69,7 @@ The microservice approach will be implemented in 2 programming languages: **Pyth
 
 #### Backend workers
 
-Backend workers will be implemented in 2 programming languages: **Python and Go**. The workers will consume messages from a message queue / pub-sub queue produced by API Servers and perform actions.
+Backend workers will be implemented in 2 programming languages: **[Python](https://github.com/yafig/backend-worker/tree/master/python) and [Go](https://github.com/yafig/backend-worker/tree/master/go)**. The workers will consume messages from a message queue / pub-sub queue produced by API Servers and perform actions.
 
 ## Who made this
 
