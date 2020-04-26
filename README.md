@@ -57,7 +57,7 @@ The API Servers will be implemented in two approaches: Monolithic and Microservi
 
 #### Monolithic
 
-The monolithic approach will be implemented in **[Python](https://github.com/yafig/api-server-monolith)** using **Django REST Framework** (DRF).
+The monolithic approach will be implemented in **[Python](https://github.com/yafig/api-server-monolith/tree/master/python-django-rest)** using **Django REST Framework** (DRF).
 
 #### Microservice
 
