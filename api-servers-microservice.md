@@ -2,6 +2,12 @@
 
 The main microservice architecture is based on this Microsoft article: [Microsoft Microservices architecture style](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices). HTTP REST API design is based on this Microsoft article: [Web API design guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design).
 
+## Table of Contents
+
+- [Service & Resource Definitions](#Service--Resource-Definitions)
+- [Queues](#Queues)
+- [Implementations](#Implementations)
+
 ## Service & Resource Definitions
 
 The service definitions, resources and sub-resource, its endpoints and parameters.
