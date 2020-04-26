@@ -38,8 +38,7 @@ Post service will be accessible via both HTTP REST & gRPC. The operations with H
 
 | Resource | POST | GET | PUT | DELETE |
 |----------|------|-----|-----|--------|
-| /feed    | | Get user's feed | | |
-| /posts   | Upload a new post | | |
+| /posts   | Upload a new post | Get user's feed | |
 | /posts/{id} | | Get post | Update post | Delete post |
 | /posts/user/{user_id} | | Get posts by user | | |
   
@@ -84,9 +83,11 @@ Search service is exposed via HTTP REST. The HTTP REST operation is:
 
 These are the queues for communications between API Servers and Backend Workers.
 
-- `search_indexer` queue: (create) post service -> queue -> search_indexer worker
-- `thumbnail_generator` queue: (create) post service -> queue -> thumbnail_generator worker
-- `send_email` queue: (create) user service -> queue -> send_email worker
+| Queue | Operation | Consumer worker |
+|-------|-----------|-----------------|
+| search_indexer | create/upload post | search_indexer |
+| thumbnail_generator | create/upload post | thumbnail_generator |
+| send_email | create user | send_email |
 
 ## Implementations
 
