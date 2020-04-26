@@ -10,18 +10,32 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 
 > While most "todo" demos provide an excellent cursory glance at a framework's capabilities, they typically don't convey the knowledge & perspective required to actually build real applications with it.
 
-**YAFIG** is aimed to build an **Instagram-clone** project with a loosely coupled microservice approach. This project is an initiative for me (and other contributors) to learn *in public* by building a real project from scratch. I am pretty sure I have a lot of things to learn along this journey.
+**YAFIG** is aimed to build an **Instagram-clone** project with a loosely coupled microservice approach. This project will only implement the basic features of Instagram:
 
-The backend part will be implemented in 2 programming languages (or more, PR is open for other languages), Python and Go. Each microservice will be implemented either using Hexagonal architecture, Model View Controller (MVC) architecture or flat-file architecture.
+- Register & User login
+- Upload, edit and delete a post
+- Comment on posts
+- Search the posts
 
-The frontend is implemented in VueJS + NuxtJS (again, PR is open for other JS frameworks).
+## Table of Contents
 
-## But why?
+- [But why?](#But-why)
+- [Detailed Specs](Detailed-specs)
+- [Implementation](#Implementation)
+  - [Frontend](#Frontend)
+  - [API Servers & Workers](#API-servers--workers)
+    - [Monolithic](#Monolithic)
+    - [Microservice](#Microservice)
+    - [Backend workers](#Backend-workers)
+- [Who made this](#Who-made-this)
 
+## But why
+
+This project is an initiative for me (and other contributors) to learn *in public* by building a real project from scratch. I am pretty sure I have a lot of things to learn along this journey. This is my greenfield to test new technologies that interest me.
 
 ## Detailed Specs
 
-Refer to these detailed specs for more information:
+Refer to following documents for more information:
 
 - [Entities](entities.md)
 - [Frontend](frontend.md)
@@ -31,6 +45,32 @@ Refer to these detailed specs for more information:
 - [Devops](devops.md)
 - [Infrastructure](infrastructure.md)
 
+## Implementation
+
+### Frontend
+
+The frontend is implemented in VueJS + NuxtJS (again, PR is open for other JS frameworks). Other frameworks that I might be interested to explore next would be **Svelte** and **NextJS**.
+
+### API Servers & Workers
+
+The API Servers will be implemented in two approaches: Monolithic and Microservice.
+
+#### Monolithic
+
+The monolithic approach will be implemented in Django REST Framework (DRF).
+
+#### Microservice
+
+The microservice approach will be implemented in 2 programming languages: **Python and Go**. Each microservice will be implemented using either:
+
+- Hexagonal architecture
+- Model View Controller (MVC) architecture
+- Flat-file architecture
+
+#### Backend workers
+
+Backend workers will be implemented in 2 programming languages: **Python and Go**. The workers will consume messages from a message queue / pub-sub queue produced by API Servers and perform actions.
+
 ## Who made this
 
-This is sole project by [Fadhil Yaacob](http://twitter.com/sdil)
+This is solo project by [Fadhil Yaacob](http://twitter.com/sdil)
