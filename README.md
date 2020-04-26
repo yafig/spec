@@ -33,6 +33,10 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 
 This project is an initiative for me (and other contributors) to learn *in public* by building a real project from scratch. I am pretty sure I have a lot of things to learn along this journey. This is my greenfield to test new technologies that interest me.
 
+Few parts of this system is not implemented consistently. For example you will see one module is implemented in MVC architecture and another is in Clean architecture. This is **intentional** because I wanted to learn different approaches to do the same thing. In programming, there is no one right way to implement things, so I got to learn them all. That is why the system is implemented in both monolith & microservice, and different architectures & tech stacks.
+
+The speed is not my priority in this project. It may takes time for me to understand many of the framework/technology in detail, so I don't mind taking a longer time to understand them in detail.
+
 ## Detailed Specs
 
 Refer to following documents for more information:
