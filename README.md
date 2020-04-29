@@ -13,8 +13,9 @@ Inspired by [Realword project from Thinkster](https://github.com/gothinkster/rea
 **YAFIG** is aimed to build an **Instagram-clone** project with a loosely coupled microservice approach. This project will only implement the basic features of Instagram:
 
 - Register & User login
+- User can follow or block other users
 - Upload, edit and delete a post
-- Comment on posts
+- Comment & like posts
 - Search the posts
 
 ## Table of Contents
