@@ -25,9 +25,9 @@ Handle user registration and authentication. User service will be accessible via
 
 | Resource | POST | GET | PUT | DELETE |
 |----------|------|-----|-----|--------|
-| /register | Create a new user. Will publish a message to `send_email` queue | | | |
-| /login | Login the user and return a JWT token | | | |
 | /users | | Authenticate user based on Header Authorization supplied | | |
+| /users/register | Create a new user. Will publish a message to `send_email` queue | | | |
+| /users/login | Login the user and return a JWT token | | | |
 | /users/{username} | | Get user details | Update user | Delete user |
 | /users/{username}/posts | | Get user's posts. Will invoke Post microservice. | | |
 | /users/follow/{username} | | Creates a new record in `relationship` table and update `follow_count` of that user | | |
