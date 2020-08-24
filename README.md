@@ -26,7 +26,7 @@ The backend of this project will be implemented in two approaches: microservice 
 - [Detailed Specs](#Detailed-specs)
 - [Implementation](#Implementation)
   - [Frontend](#Frontend)
-  - [API Servers & Workers](#API-servers--workers)
+  - [API Servers](#API-servers)
     - [Monolithic](#Monolithic)
     - [Microservice](#Microservice)
   - [Backend workers](#Backend-workers)
@@ -36,7 +36,7 @@ The backend of this project will be implemented in two approaches: microservice 
 
 This project is an initiative for me to learn *in public* by building a real project from scratch. I am pretty sure I have a lot of things to learn along this journey. This is my greenfield to test new technologies that interest me.
 
-Few parts of this system is not implemented consistently. For example you will see one module is implemented in MVC architecture and another is in Clean architecture. This is intentional because I wanted to learn different approaches to do the same thing. Speed is not my priority in this project. It may takes time for me to understand many of the framework/technology in detail, so I don't mind taking a longer time to understand them in detail.
+Some parts of this system are not implemented consistently. For example, you will see one module is implemented in MVC architecture and another in Clean architecture. This is intentional because I wanted to learn different approaches to do the same thing. Speed is not my priority in this project. It may takes time for me to understand many of the framework/technology in detail, so I don't mind taking a longer time to understand them in detail.
 
 ## Detailed Specs
 
@@ -45,9 +45,8 @@ Refer to following documents for more information:
 - [Entities](entities.md)
 - [Frontend](frontend.md)
 - API Server
-  - [API Servers Microservice (Option 1)](api-servers-microservice.md)
-  - [API Servers Monolith (Option 2)](api-servers-monolith.md)
-- [Backend workers](backend.md)
+  - [API Servers Monolith (Option 1)](api-servers-monolith.md)
+  - [API Servers Microservice (Option 2)](api-servers-microservice.md)
 - [DevOps](devops.md)
 - [Infrastructure](infrastructure.md)
 
@@ -63,7 +62,7 @@ Other frameworks that I might be interested to explore next would be **Svelte** 
 
 ### API Servers
 
-The API Servers will be implemented in two approaches: Monolithic and Microservice. Both of them are doing essentially the same thing, but in different manner.
+The API Servers will be implemented in two approaches: Monolithic and Microservice. Both of them are doing essentially the same thing, but in a different manner.
 
 #### Monolithic
 
@@ -76,7 +75,7 @@ The monolithic approach will be implemented in:
 The microservice approach will be implemented in programming languages:
 
 - [Python](https://github.com/yafig/api-server-microservice/tree/master/python)
-- [Upcoming] Golang
+- *[Upcoming] Go*
 
 Each microservice will be implemented using either:
 
@@ -84,12 +83,10 @@ Each microservice will be implemented using either:
 - Model View Controller (MVC) architecture
 - Flat-file architecture
 
-### Backend workers
-
-Backend workers will be implemented in:
+Backend workers for microservice will be implemented in:
 
 - [Python](https://github.com/yafig/backend-worker/tree/master/python)
-- [Upcoming] Go
+- *[Upcoming] Go*
 
 The workers will consume messages from a message queue / pub-sub queue produced by API Servers and perform actions.
 
